@@ -1,8 +1,8 @@
 # Earnings Analysis Skill
 
-Analyze a company's last 12 quarters of earnings reports and produce a 13-section
-plain-language report (12 quarterly sections + 1 overall evaluation), then
-auto-save it into the company's Obsidian directory note. Built for
+Analyze a company's last 12 quarters of earnings reports and produce a
+plain-English report (overview table + 12 quarterly sections + big picture),
+then auto-save it into the company's Obsidian directory note. Built for
 [Hermes Agent](https://hermes-agent.nousresearch.com/docs), installable as a skill.
 
 ## Install
@@ -27,9 +27,10 @@ Ask Hermes for an earnings analysis of any ticker:
 
 The skill collects 12 consecutive fiscal quarters — revenue, margins, GAAP vs
 adjusted EPS, cash flow, balance sheet, buybacks, and the guidance given each
-quarter — then writes a fixed-structure 13-section report in plain language
-(no finance background needed to read it), scores management guidance against
-next-quarter delivery, and auto-saves to your Obsidian vault:
+quarter — then writes a zero-jargon report a non-investor can read: one overview
+table, 12 calendar-labeled quarterly sections (Money in / Real cash / Cash left /
+Owed), and a big picture. It scores management guidance against next-quarter
+delivery, and auto-saves to your Obsidian vault:
 
 - `Stocks/<TICKER>.md` — earnings-analysis section added, existing thesis content preserved
 - `Stocks/Index.md` — ticker row ensured

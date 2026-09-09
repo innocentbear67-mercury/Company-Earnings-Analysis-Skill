@@ -1,7 +1,7 @@
 ---
 name: earnings-analysis
 description: Analyze 12 quarters of earnings, auto-save to vault.
-version: 0.1.0
+version: 0.2.0
 author: Kundi Wang, Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
@@ -9,8 +9,9 @@ platforms: [linux, macos, windows]
 
 # Earnings Analysis Skill
 
-Analyze a company's last 12 quarters of earnings reports, produce a 13-section
-plain-language report (12 quarterly sections + 1 overall evaluation), then
+Analyze a company's last 12 quarters of earnings reports, produce a
+Kundi-approved plain-English report (overview table + 12 quarterly sections +
+big picture), then
 AUTO-SAVE it into the company's Obsidian directory note without being asked.
 Kundi should never have to remind about the save.
 
@@ -48,7 +49,7 @@ alone.
    that quarter (next-quarter and full-year). Completion criterion: a filled
    table for 12 consecutive fiscal quarters with fiscal-quarter labels (e.g.
    FQ3'24) — if fewer than 12 are publicly available (recent IPO), use what
-   exists and say so in Section 13.
+   exists and say so in the big picture.
 
 2. **Analyze each quarter.** Work through the checklist below per quarter. The
    point is NOT restating numbers — it is what changed and why it matters.
@@ -64,38 +65,48 @@ alone.
    - Guidance: raised/lowered/maintained vs prior quarter, magnitude.
    - Call: what management emphasized, what analysts pressed, what got dodged.
 
-3. **Write the report — 13 sections, fixed structure:**
+3. **Write the report — Kundi-approved format (binding, from LILA 9/9/2026).** Better formatting never means less information — keep every number, just make it readable. Structure:
 
    ```markdown
-   # <TICKER> — Earnings Analysis (last 12 quarters)
-   *As of YYYY-MM-DD. Fiscal quarters labeled FQx'YY.*
-
-   ## 1. FQ<x> <year> — <plain-language headline>
-   **Numbers:** revenue $X (+YoY%, QoQ%), gross margin X%, op margin X%,
-   GAAP EPS $X / adj $X, OCF $X, FCF $X, debt $X, cash $X.
-   **What changed:** <the 2-3 moves that matter this quarter>
-   **What this means:** <one to three sentences, plain talk — see rule below>
-
-   ## 2. ... (repeat for each of the 12 quarters)
-   ...
-   ## 13. Overall Evaluation
-   **The story of these 12 quarters:** <3-5 sentences, plain talk: what kind of
-   company does the data say this is — accelerating/stalling/cyclical/one-hit>
-   **Trends that held all 12 quarters:** <list>
-   **Trends that broke or reversed:** <list, with which quarter>
-   **Management credibility:** did guidance match delivery, quarter by quarter?
-   **Red flags:** accounting gaps, guidance misses, margin erosion, dilution.
-   **What it means for the business:** <straight answer: is the business getting
-   stronger, weaker, or cyclical — and what to watch next quarter>
+   # <TICKER> — 3 Years In Plain English
+   > One line: what they sell + where. Price $X (date, position in 52wk range). Worth ~$XB, owes ~$XB.
+   > How to read this: Money in = sales. Real cash = cash from daily work (OCF). Cash left = what remains after fixing/building (FCF). Owed = loans. In bank = cash on hand.
+   ## All 12 quarters on one page
+   | Time | Money in | vs last year | Real cash | Cash left | Owed / In bank |
+   |---|---|---|---|---|---|
+   | <Mon-Mon YYYY> | $XM | up/down X% | $XM | $XM | $XM / $XM |
+   (... all 12 rows, calendar labels — never fiscal codes as the visible label ...)
+   ## What happened, quarter by quarter
+   ### 1. <Mon-Mon YYYY> — <plain headline>
+   - **Kept:** Xc per $1 after running the network (= gross margin, no jargon). Per share: $X.
+   - **What happened:** <2-4 bullets/facts: customers, costs, one-offs, guidance, storms/deals — with dollar amounts>
+   - **Bottom line:** <1-2 sentences, zero jargon>
+   (... repeat for all 12 ...)
+   ## The big picture
+   **One sentence:** <story of the 12 quarters>
+   **Always true, all 12 quarters:** <numbered, with ranges>
+   **What flipped:** <numbered, with which quarter each broke>
+   **Can you trust the bosses?:** <forecasting vs operating, with receipts>
+   **5 dangers:** <numbered, plain words, dollar amounts>
+   **Next to watch (<date>):** <1-2 concrete questions>
+   ---
+   *Checked: <what was cross-checked>. No guessing. One note: <any presentation quirk, e.g. GAAP vs standardized>.*
+   *Where I could be wrong: <strongest counterargument, 1-2 sentences>.*
    ```
+   Fiscal-quarter labels (FQx'YY) go in the As-of line / vault note only — chat-facing headers use calendar months so a non-investor can follow.
 
-4. **Plain-language rule (binding).** Every "What this means" line must be
-   understandable to someone with zero finance background. Bad: "Gross margin
-   compression of 180bps reflects input cost inflation outpacing pricing
-   carry-through." Good: "They made less profit on each dollar of sales because
-   their costs rose faster than the prices they could charge." No hedging, no
-   analyst-speak, no unexplained jargon. If a term is needed (NRR, backlog),
-   explain it in parentheses the first time.
+4. **Plain-language rule (binding, from LILA 9/9/2026).** Zero jargon — a
+   non-investor must understand every line. Fixed vocabulary: Money in = sales;
+   Real cash = cash from daily work (OCF); Cash left = what remains after
+   fixing/building (FCF); Owed / In bank = loans / cash on hand; Kept Xc per $1
+   = gross margin. Chat-facing headers use calendar labels (Jul-Sep 2023),
+   never fiscal codes. Bad: "Gross margin compression of 180bps reflects input
+   cost inflation outpacing pricing carry-through." Good: "They kept less per
+   $1 because costs rose faster than prices." No bps, no unexplained acronyms
+   (OIBDA, NRR, FCF, OCF) — either translate to the fixed vocabulary or explain
+   in parentheses on first use. Better formatting NEVER means less information
+   — keep every number (revenue, YoY, margins, EPS, OCF, FCF, debt, cash),
+   just make it readable.
 
 5. **Auto-save (no reminder).** This step runs every time, unconditionally:
    a. Resolve the vault root `/Users/wangkundi/Desktop/Cowork/Hermes Memory/`.
@@ -108,13 +119,15 @@ alone.
       analysis for [[TICKER]], 12 quarters, saved to Stocks/<TICKER>.md").
       Re-read the log immediately before appending — sibling sessions append
       to it concurrently.
-   e. Re-read the saved note after writing and verify the 13 sections are
-      present and no existing content was deleted (check the patch/write diff).
+   e. Re-read the saved note after writing and verify the overview table (12
+      rows) + 12 quarterly sections + big picture are present and no existing
+      content was deleted (check the patch/write diff).
    Do NOT run the full six-file financial save checklist — that applies when
    Kundi explicitly asks to save research; this skill's auto-save is scoped to
    the ticker note + Index + Research Log.
 
-6. **Report back.** Deliver the full 13-section report in chat AND confirm the
+6. **Report back.** Deliver the full report in chat in the Kundi-approved
+   format AND confirm the
    vault save with the file path. If any quarter's data could not be verified,
    say which and what source was used instead — never fill gaps with guesses.
 
@@ -125,18 +138,26 @@ alone.
 - **Stock splits:** adjust per-share figures (EPS, buyback prices) to a
   consistent share basis across all 12 quarters or growth rates are fiction.
 - **Adjusted EPS drift:** if the company keeps adding new "one-time" addbacks,
-  flag it in Section 13 rather than averaging it away.
+  flag it in the big picture rather than averaging it away.
 - **Guidance memory:** compare each quarter's guidance to the NEXT quarter's
   actuals to score management credibility — this is the highest-value output of
   the skill and the most commonly skipped step.
 - One aggregator source alone = trust nothing. Cross-check at least revenue,
   EPS, and OCF against IR/EDGAR.
+- **Formatting ≠ less info (LILA 9/9/2026):** when Kundi says "nicer" or
+  "simpler" he means readability, not fewer numbers. Keep all figures; change
+  words and layout, never drop content.
+- **Jargon creep:** fiscal codes (FQ3'24), bps, OIBDA/OCF/FCF unexplained, and
+  "What this means"-style analyst headers all fail Kundi's bar. Calendar
+  months + fixed vocabulary (Money in / Real cash / Cash left / Owed / Kept)
+every time.
 
 ## Verification
 
-- 12 (or all available) quarterly sections present, correctly labeled, in
-  chronological order + Section 13 present.
-- Every quarter has a "What this means" line in plain language.
+- 12 (or all available) quarterly rows in the overview table + 12 quarterly
+  sections in chronological order with calendar labels + big picture present.
+- Every quarter has Kept / What happened / Bottom line in zero-jargon language;
+  "How to read this" legend present.
 - `Stocks/<TICKER>.md` saved, prior content preserved, `Stocks/Index.md` and
   `Research Log.md` updated (re-read after write).
 - Any unverified numbers explicitly flagged, not silently filled.
